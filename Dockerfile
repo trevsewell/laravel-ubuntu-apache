@@ -24,5 +24,7 @@ RUN docker-php-ext-configure gd \
       --with-zlib-dir
 RUN docker-php-ext-install zip pdo pdo_mysql bcmath gd exif
 
+RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
+
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
