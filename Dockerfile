@@ -1,4 +1,4 @@
-FROM php:7.3-apache
+FROM php:7.4-apache
 
 RUN a2enmod rewrite
 RUN apt-get -y update
@@ -18,10 +18,9 @@ RUN apt-get install -y \
     zip
 RUN pecl install xdebug-beta
 RUN docker-php-ext-configure gd \
-      --with-gd \
-      --with-jpeg-dir \
-      --with-png-dir \
-      --with-zlib-dir
+      --with-jpeg \
+      --with-freetype
+RUN docker-php-ext-configure zip
 RUN docker-php-ext-install zip pdo pdo_mysql bcmath gd exif
 
 RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
